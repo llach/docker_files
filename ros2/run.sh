@@ -3,6 +3,8 @@
 REPOSITORY_NAME="$(basename "$(dirname -- "$( readlink -f -- "$0"; )")")"
 
 DOCKER_VOLUMES="
+-e DISPLAY=${IP}:0 \
+-e XAUTHORITY=/root/.Xauthority \
 --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
 --volume="${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority" \
 --volume="${HOME}/repos:/home/ros/repos" \

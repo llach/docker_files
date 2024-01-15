@@ -32,12 +32,15 @@ USER ${USERNAME}
 # Install ROS dependencies
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash && rosdep update
 RUN sudo apt update && sudo apt upgrade -y
+RUN sudo apt install ros-humble-rviz2 -y
 
 RUN sudo apt install zsh curl -y
 RUN yes Y | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 COPY fastrps-upd-profile.xml /home/ros/
 ENV  FASTRTPS_DEFAULT_PROFILES_FILE=/home/ros/fastrps-upd-profile.xml
+
+RUN sudo apt install iputils-ping x11-apps mesa-utils -y
 
 # Set up the entrypoint
 COPY entrypoint.sh /

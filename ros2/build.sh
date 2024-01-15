@@ -1,10 +1,10 @@
-#!/bin/zsh
+#!/bin/bash
 
 REPOSITORY_NAME="$(basename "$(dirname -- "$( readlink -f -- "$0"; )")")"
 
 DOCKER_USER=ros
-DOCKER_GID=$GID
-DOCKER_UID=$UID
+DOCKER_GID=$(id -g)
+DOCKER_UID=$(id -u)
 
 echo "======================="
 echo " Building docker image "
