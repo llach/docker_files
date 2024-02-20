@@ -9,3 +9,7 @@ then
   source $HOME/ws/install/setup.zsh
   echo "Sourced workspace"
 fi
+
+# argcomplete for ros2 & colcon
+eval "$(register-python-argcomplete3 ros2)"
+eval "$(register-python-argcomplete3 colcon)"
