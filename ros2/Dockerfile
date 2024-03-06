@@ -53,8 +53,13 @@ USER ${USERNAME}
 RUN sudo apt install -y ros-humble-rmw-cyclonedds-cpp
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
+RUN sudo apt install zsh curl iputils-ping x11-apps mesa-utils  -y
+RUN yes Y | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 # Set up the entrypoint
 COPY entrypoint.sh /
+COPY zshrc.sh /home/${USERNAME}/zshrc.sh
+RUN cat /home/${USERNAME}/zshrc.sh >> /home/${USERNAME}/.zshrc && rm /home/${USERNAME}/zshrc.sh
 
 SHELL ["/bin/zsh", "-c"]
 

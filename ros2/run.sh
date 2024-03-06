@@ -1,6 +1,7 @@
 #!/bin/bash
 
 REPOSITORY_NAME="$(basename "$(dirname -- "$( readlink -f -- "$0"; )")")"
+CNAME=${1:-ros2}
 
 DOCKER_VOLUMES="
 --env="DISPLAY=$DISPLAY" \
@@ -17,13 +18,13 @@ DOCKER_VOLUMES="
 DOCKER_ARGS=${DOCKER_VOLUMES}
 
 # container neither running nor stopped? → create
-if [[ -z "$(docker ps -a -q -f name='ros2')" ]]
+if [[ -z "$(docker ps -a -q -f name=${CNAME})" ]]
 then
 echo "creating container"
-docker create -i -t --name ros2 \
+docker create -i -t --name ${CNAME} \
                 --net=host \
                 --ipc=host \
-                --pid=host \
+                --hostname="$(hostname)" \
                 --privileged  \
                 --device-cgroup-rule "c 81:* rmw" \
                 --device-cgroup-rule "c 189:* rmw" \
@@ -32,9 +33,9 @@ docker create -i -t --name ros2 \
 fi
 
 # container not running? → start
-if [[ -z "$(docker ps -q -f name='ros2')" ]];
+if [[ -z "$(docker ps -q -f name=${CNAME})" ]];
 then
-  docker container start ros2
+  docker container start ${CNAME}
 fi
 
-docker container exec -it ros2 /entrypoint.sh
+docker container exec -it ${CNAME} /entrypoint.sh
