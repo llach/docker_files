@@ -8,6 +8,7 @@ DOCKER_ARGS="
 --runtime=nvidia \
 --mount source="/home/$USER/shared",target="/shared",type=bind \
 --volume="/dev/shm:/dev/shm" \
+--volume="$HOME/repos:/home/ros/repos" \
 "
 
 # container neither running nor stopped? → create

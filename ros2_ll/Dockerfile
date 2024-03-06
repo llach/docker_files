@@ -6,6 +6,8 @@ ENV ROS_DISTRO=${ROS_DISTRO}
 ARG USERNAME=ros
 USER ${USERNAME}
 
+RUN sudo apt install -y ros-humble-realsense2-camera ros-humble-realsense2-description
+
 RUN sudo apt install -y zsh
 RUN yes Y | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
